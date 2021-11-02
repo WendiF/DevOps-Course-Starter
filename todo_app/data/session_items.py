@@ -13,7 +13,6 @@ def get_items():
     Returns:
         list: The list of saved items.
     """
-    # print(session.get('items', _DEFAULT_ITEMS.copy()))
 
     return session.get('items', _DEFAULT_ITEMS.copy())
 
@@ -52,15 +51,14 @@ def add_item(title):
     # Add the item to the list
     items.append(item)
     session['items'] = items
-    print(session['items'])
 
     return item
 
-    
-def remove_item_by_id(id):
-    item_to_remove = get_item(id)
-    currentItems = session['items'] 
-    session['items'] = [item for item in currentItems if not item_to_remove]
+def remove_items_by_id(ids):
+    for id in ids:
+        currentItems = session['items'] 
+        lambda item: print(item['id'] != id), currentItems
+        session['items'] = [item for item in currentItems if item.get('id') != int(id)]
 
 def mark_items_as_completed(ids):
     for id in ids:

@@ -20,7 +20,9 @@ def add_new_item():
 
 @app.route('/update_todos', methods=['POST'])
 def update_todos():
-    mark_items_as_completed(request.form.getlist("todo-item"))
+    mark_items_as_completed(request.form.getlist("complete-todo-item"))
+    print(request.form.getlist("delete-todo-item"))
+    remove_items_by_id(request.form.getlist("delete-todo-item"))
     return redirect(url_for('index'))
 
 def sort_todo_list(items):

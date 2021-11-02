@@ -7,32 +7,43 @@
     <p class="lead">Just another to-do app.</p>
   </div>
 
-  <form action="/update_todos" method="post" class="todo-list">
-    <div class="col-md-12">
-      <h2>Items</h2>
-      <fieldset class="checkboxgroup">
-        {% for item in items %}
-          {% if item.status == "Not Started" %}
-            <label><input type ="checkbox" name="todo-item" value="{{item.id}}"> {{item.title}}</label><br>
-          {% else %}
-            <label><input type ="checkbox"  name="todo-item" value="{{item.id}}" checked disabled> <s>{{item.title}}</s></label></s><br>
-          {% endif %}
-        {% endfor %}
-      </fieldset>
-    </div>
-    <div class="todo-list">
-      <input type="submit" value="Update!">
-    </div>
-  </form>
-  
-  <form action="/add_item" method="post" class="todo-form">
-    <div class="todo-form">
-      <label for="title">Enter your to-do item: </label>
-      <input type="text" name="title" id="title" required>
-    </div>
-    <div class="todo-form">
-      <input type="submit" value="Add!">
-    </div>
-  </form>
+  <div class="col-md-12">
+    <form action="/update_todos" method="post" class="todo-list">
+      <div>
+        <h2>Items</h2>
+        <table class="table">
+          <tr>
+            <th>Mark as Done</th>
+            <th>Title</th>
+            <th>Delete</th>
+          </tr>
+          {% for item in items %}
+            <tr>
+              {% if item.status == "Not Started" %}
+                <td><input type ="checkbox" name="complete-todo-item" value="{{item.id}}"></td>
+                <td>{{item.title}}</td>
+                <td><input type ="checkbox" name="delete-todo-item" value="{{item.id}}"></label></td>
+              {% else %}
+                <td><input type ="checkbox" name="complete-todo-item" value="{{item.id}}" checked disabled></td>
+                <td><s>{{item.title}}</s></td>
+                <td><input type ="checkbox" name="delete-todo-item" value="{{item.id}}"></label></td>
+              {% endif %}
+            </tr>
+          {% endfor %}
+        </table>
+      </div>
+      <input type="submit" class="btn btn-primary" value="Update!">
+    </form>
+    <br>
+    <form action="/add_item" method="post">
+      <div class="form-group row">
+        <label for="title" col-sm-2 col-form-label>Enter your to-do item: </label>
+        <div class="col-sm-10">
+          <input type="text" name="title" id="title" class="form-control" required>
+        </div>
+      </div>
+      <input type="submit" class="btn btn-primary" value="Add!">
+    </form>
+  </div>
 {% endblock %}
 
