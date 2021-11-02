@@ -11,10 +11,17 @@ app.config.from_object(Config())
 @app.route('/')
 def index():
     items = get_items()
-    return render_template('index.html', items = items)
+    return render_template('index.html', items = sort_todo_list(items))
 
 @app.route('/add_item', methods=['POST'])
 def add_new_item():
     add_item(request.form.get("title"))
-    items = get_items
     return redirect(url_for('index'))
+
+@app.route('/update_todos', methods=['POST'])
+def update_todos():
+    mark_items_as_completed(request.form.getlist("todo-item"))
+    return redirect(url_for('index'))
+
+def sort_todo_list(items):
+    return sorted(items, key=lambda item: item['status'], reverse=True)

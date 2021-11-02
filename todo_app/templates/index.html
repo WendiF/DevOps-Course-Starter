@@ -7,20 +7,27 @@
     <p class="lead">Just another to-do app.</p>
   </div>
 
-  <div class="row">
+  <form action="/update_todos" method="post" class="todo-list">
     <div class="col-md-12">
       <h2>Items</h2>
-      <ul class="list-group mb-4">
+      <fieldset class="checkboxgroup">
         {% for item in items %}
-          <li>{{item.title}}</li>
+          {% if item.status == "Not Started" %}
+            <label><input type ="checkbox" name="todo-item" value="{{item.id}}"> {{item.title}}</label><br>
+          {% else %}
+            <label><input type ="checkbox"  name="todo-item" value="{{item.id}}" checked disabled> <s>{{item.title}}</s></label></s><br>
+          {% endif %}
         {% endfor %}
-      </ul>
+      </fieldset>
     </div>
-  </div>
+    <div class="todo-list">
+      <input type="submit" value="Update!">
+    </div>
+  </form>
   
   <form action="/add_item" method="post" class="todo-form">
     <div class="todo-form">
-      <label for="title">Enter your todo item: </label>
+      <label for="title">Enter your to-do item: </label>
       <input type="text" name="title" id="title" required>
     </div>
     <div class="todo-form">
