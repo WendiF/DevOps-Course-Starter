@@ -1,8 +1,13 @@
 from flask import session
+from enum import Enum
+
+class Status(Enum):
+    NOT_STARTED = "Not Started"
+    COMPLETED = "Completed"
 
 _DEFAULT_ITEMS = [
-    { 'id': 1, 'status': 'Not Started', 'title': 'List saved todo items' },
-    { 'id': 2, 'status': 'Not Started', 'title': 'Allow new items to be added' }
+    { 'id': 1, 'status': Status.NOT_STARTED.value, 'title': 'List saved todo items' },
+    { 'id': 2, 'status': Status.NOT_STARTED.value, 'title': 'Allow new items to be added' }
 ]
 
 
@@ -46,7 +51,7 @@ def add_item(title):
     # Determine the ID for the item based on that of the previously added item
     id = items[-1]['id'] + 1 if items else 0
 
-    item = { 'id': id, 'title': title, 'status': 'Not Started' }
+    item = { 'id': id, 'title': title, 'status': Status.NOT_STARTED.value }
 
     # Add the item to the list
     items.append(item)
@@ -63,7 +68,7 @@ def remove_items_by_id(ids):
 def mark_items_as_completed(ids):
     for id in ids:
         item = get_item(id)
-        item['status'] = 'Completed'
+        item['status'] = Status.COMPLETED.value
         save_item(item)
 
 def save_item(item):

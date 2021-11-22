@@ -12,11 +12,13 @@
       <div>
         <h2>Items</h2>
         <table class="table">
-          <tr>
-            <th>Mark as Done</th>
-            <th>Title</th>
-            <th>Delete</th>
-          </tr>
+          <thead>
+            <tr>
+              <th>Mark as Done</th>
+              <th>Title</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
           {% for item in items %}
             <tr>
               {% if item.status == "Not Started" %}
