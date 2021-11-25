@@ -25,4 +25,4 @@ def update_todos():
     return redirect(url_for('index'))
 
 def sort_todo_list(items):
-    return sorted(items, key=lambda item: item['status'], reverse=True)
+    return sorted(items, key=lambda item: item.status, reverse=True)
