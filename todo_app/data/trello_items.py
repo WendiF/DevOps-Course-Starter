@@ -3,13 +3,11 @@ import requests
 import os
 
 API_URL = "https://api.trello.com"
-TOKEN = os.getenv('TOKEN')
-SECRET_KEY = os.getenv('SECRET_KEY')
 BOARD_ID = os.getenv('BOARD_ID')
 BASE_PAYLOAD = {
-        'key': SECRET_KEY,
-        'token': TOKEN
-    }
+    'key': os.getenv('API_KEY'),
+    'token': os.getenv('TOKEN')
+}
 class Status(Enum):
     TO_DO = "To Do"
     DONE = "Done"
