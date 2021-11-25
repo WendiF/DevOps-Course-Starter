@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect
 from flask.helpers import url_for
-from .data.session_items import get_items, add_item, mark_items_as_completed, remove_items_by_id
+from .data.trello_items import get_items, add_item, mark_items_as_completed, remove_items_by_id
 
 from todo_app.flask_config import Config
 
