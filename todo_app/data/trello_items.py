@@ -20,6 +20,12 @@ def add_item(title):
     payload = {**BASE_PAYLOAD, 'name': title, 'idList': list_ids[Status.TO_DO.value]}
     requests.post(f'{API_URL}/1/cards', params = payload)
 
+def mark_items_as_in_progress(ids):
+    list_ids = map_lists_to_statuses()
+    for id in ids:
+        payload = {**BASE_PAYLOAD, 'idList': list_ids[Status.IN_PROGRESSS.value]}
+        requests.put(f'{API_URL}/1/cards/{id}', params = payload)
+
 def mark_items_as_completed(ids):
     list_ids = map_lists_to_statuses()
     for id in ids:

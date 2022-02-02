@@ -7,45 +7,112 @@
     <p class="lead">Just another to-do app.</p>
   </div>
 
-  <div class="col-md-12">
-    <form action="/update_todos" method="post" class="todo-list">
-      <div>
-        <h2>Items</h2>
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Mark as Done</th>
-              <th>Title</th>
-              <th>Delete</th>
-            </tr>
-          </thead>
-          {% for item in items %}
-            <tr>
-              {% if item.status == "To Do" %}
-                <td><input type ="checkbox" name="complete-todo-item" value="{{item.id}}"></td>
-                <td>{{item.title}}</td>
-                <td><input type ="checkbox" name="delete-todo-item" value="{{item.id}}"></label></td>
-              {% else %}
-                <td><input type ="checkbox" name="complete-todo-item" value="{{item.id}}" checked disabled></td>
-                <td><s>{{item.title}}</s></td>
-                <td><input type ="checkbox" name="delete-todo-item" value="{{item.id}}"></label></td>
-              {% endif %}
-            </tr>
-          {% endfor %}
-        </table>
+  <form action="/add_item" method="post">
+    <div class="form-group row">
+      <label for="title" col-sm-2 col-form-label>Enter your to-do item: </label>
+      <div class="col-sm-10">
+        <input type="text" name="title" id="title" class="form-control" required>
       </div>
-      <input type="submit" class="btn btn-primary" value="Update!">
-    </form>
-    <br>
-    <form action="/add_item" method="post">
-      <div class="form-group row">
-        <label for="title" col-sm-2 col-form-label>Enter your to-do item: </label>
-        <div class="col-sm-10">
-          <input type="text" name="title" id="title" class="form-control" required>
+    </div>
+    <input type="submit" class="btn btn-primary" value="Add!">
+  </form>
+
+  <br>
+
+  <form action="/update_todos" method="post" class="todo-list"> 
+    <div class="container">
+      <div class="row"> 
+        <div class="col-md">
+          <div class="border border-primary bg-primary rounded p-3">
+            <h2 class="text-center">To Do</h2>
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th class="col-md-1 text-center">🕒</th>
+                    <th class="col-md-10">Title</th>
+                    <th class="col-md-1 text-center">❌</th>
+                  </tr>
+                </thead>
+                {% for item in view_model.to_do_items %}
+                  <tr>
+                      <td class="col-md-1 text-center"><input type ="checkbox" name="start-todo-item" value="{{item.id}}"></td>
+                      <td class="col-md-10">{{item.title}}</td>
+                      <td class="col-md-1 text-center"><input type ="checkbox" name="delete-todo-item" value="{{item.id}}"></td>
+                  </tr>
+                {% endfor %}
+              </table>
+            </div>  
+          </div>
+        </div>
+        
+        <div class="col-md">
+          <div class="border border-primary bg-primary rounded p-3">
+            <h2 class="text-center">In Progress</h2>
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th class="col-md-1 text-center">&#10004;</th>
+                    <th class="col-md-10">Title</th>
+                    <th class="col-md-1 text-center">❌</th>
+                  </tr>
+                </thead>
+                {% for item in view_model.in_progress_items %}
+                  <tr>
+                      <td class="col-md-1 text-center"><input type ="checkbox" name="complete-todo-item" value="{{item.id}}"></td>
+                      <td class="col-md-10">{{item.title}}</td>
+                      <td class="col-md-1 text-center"><input type ="checkbox" name="delete-todo-item" value="{{item.id}}"></td>
+                  </tr>
+                {% endfor %}
+              </table>
+            </div>  
+          </div>
+        </div>
+        
+        <div class="col-md">
+          <div class="border border-primary bg-primary rounded p-3">
+            <h2 class="text-center">Done</h2>
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th class="col-md-11">Title</th>
+                    <th class="col-md-1 text-center">❌</th>
+                  </tr>
+                </thead>
+                {% if view_model.should_show_all_done_items %}
+                  {% for item in view_model.done_items %}
+                    <tr>
+                      <td class="col-md-11"><s>{{item.title}}</s></td>
+                      <td class="col-md-1 text-center"><input type ="checkbox" name="delete-todo-item" value="{{item.id}}"></td>
+                    </tr>
+                  {% endfor %}
+                {% else %}
+                  {% for item in view_model.recent_done_items %}
+                    <tr>
+                      <td class="col-md-11"><s>{{item.title}}</s></td>
+                      <td class="col-md-1 text-center"><input type ="checkbox" name="delete-todo-item" value="{{item.id}}"></td>
+                    </tr>
+                  {% endfor %}
+                  {% for item in view_model.older_done_items %}
+                    <tr class="collapse" id="collapseItems">
+                      <td class="col-md-11"><s>{{item.title}}</s></td>
+                      <td class="col-md-1 text-center"><input type ="checkbox" name="delete-todo-item" value="{{item.id}}"></td>
+                    </tr>
+                  {% endfor %}
+                {% endif %}
+              </table>
+              <a class="btn btn-primary float-right" data-toggle="collapse" href="#collapseItems" role="button" aria-expanded="false" aria-controls="collapseItems">Toggle Older Items</a>
+            </div>  
+          </div>
         </div>
       </div>
-      <input type="submit" class="btn btn-primary" value="Add!">
-    </form>
-  </div>
+    </div>
+
+    <br>
+    <input type="submit" class="btn btn-primary" value="Update!">
+  </form>
+  <br>
 {% endblock %}
 
