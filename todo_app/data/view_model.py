@@ -23,7 +23,7 @@ class ViewModel:
 
     @property
     def should_show_all_done_items(self):
-        return len(self._items) < 5
+        return len(self.done_items) < 5
 
     @property
     def recent_done_items(self): 

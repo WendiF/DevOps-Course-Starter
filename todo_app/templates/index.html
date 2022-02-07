@@ -103,7 +103,10 @@
                   {% endfor %}
                 {% endif %}
               </table>
-              <a class="btn btn-primary float-right" data-toggle="collapse" href="#collapseItems" role="button" aria-expanded="false" aria-controls="collapseItems">Toggle Older Items</a>
+              
+              {% if not view_model.should_show_all_done_items %}
+                <a class="btn btn-primary float-right" data-toggle="collapse" href="#collapseItems" role="button" aria-expanded="false" aria-controls="collapseItems">Toggle Older Items</a>
+              {% endif %}
             </div>  
           </div>
         </div>

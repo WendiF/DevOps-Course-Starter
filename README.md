@@ -57,6 +57,10 @@ Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser
 ## Running Tests
 This To-Do App is tested with pytest. Once the all dependencies have been installed, run all tests within the Poetry environment by running:
 ```bash
-$ pytest
+$ poetry run pytest
 ```
 Test files exist within the `tests` folder, with test files labelled `test_....py`. 
+To run a specific test file, run: 
+```bash
+$ poetry run pytest path/to/test_file.py
+```
