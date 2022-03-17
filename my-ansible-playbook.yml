@@ -61,7 +61,6 @@
     ansible.builtin.copy:
         src: /home/ec2-user/todoapp.service
         dest: /etc/systemd/system/todoapp.service
-        remote_src: yes
     become: yes
 
   - name: Add systemd task
