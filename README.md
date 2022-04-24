@@ -53,7 +53,11 @@ You should see output similar to the following:
 ```
 Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser to view the app.
 
-
+## Running the App with Ansible
+Move the files `my-ansible-playbook`, `create-todo-app.yaml` and `.env.j2` to the control node, install ansible, and run
+```
+ansible-playbook my-ansible-playbook.yaml -i my-ansible-inventory
+```
 ## Running Tests
 This To-Do App is tested with pytest. Once the all dependencies have been installed, run all tests within the Poetry environment by running:
 ```bash
