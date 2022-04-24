@@ -16,7 +16,6 @@
 
       - name: board_id
         prompt: Enter the board id
-        private: yes
 
   tasks:
   - name: Install git and Python 3
@@ -65,7 +64,7 @@
 
   - name: Add systemd task
     ansible.builtin.systemd:
-        state: started
+        state: restarted
         name: todoapp
         daemon_reload: yes
     become: yes
