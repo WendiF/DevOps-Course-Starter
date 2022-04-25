@@ -34,30 +34,33 @@ The `.env` file is used by flask to set environment variables when running `flas
 
 You will also need to set the variables API_KEY, TOKEN, BOARD_ID in `.env`. Sign up for a Trello account, and create a new board with lists named 'To Do' and 'Done'. You can get your API_KEY and TOKEN by following the [instructions here](https://trello.com/app-key). You can get your BOARD_ID by adding '.json' to the end of your Trello board url, and finding the field called 'idList'.
 
-## Running the App
-
-Once the all dependencies have been installed, start the Flask app in development mode within the Poetry environment by running:
-```bash
-$ poetry run flask run
-```
-
-You should see output similar to the following:
-```bash
- * Serving Flask app "app" (lazy loading)
- * Environment: development
- * Debug mode: on
- * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
- * Restarting with fsevents reloader
- * Debugger is active!
- * Debugger PIN: 226-556-590
-```
-Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser to view the app.
-
 ## Running the App with Ansible
 Move the files `my-ansible-playbook`, `create-todo-app.yaml` and `.env.j2` to the control node, install ansible, and run
 ```
 ansible-playbook my-ansible-playbook.yaml -i my-ansible-inventory
 ```
+
+## Running the App with Docker in Production
+You can build and run the Docker Image with the following commands: 
+
+```
+docker build --target production --tag todo_app:prod .
+docker run -d -p 5000:80 --env-file ./.env todo_app:prod .
+```
+
+Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser to view the app.
+
+
+## Running the App with Docker in Development
+You can build and run the Docker Image with the following commands: 
+
+```
+docker build --target development --tag todo_app:dev .
+docker run -d -p 5000:5000 --env-file ./.env --mount type=bind,source=C:/Work/DevOps-Course/DevOps-Course-Starter/todo_app,target=/todo_app/todo_app todo_app:dev
+```
+
+Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser to view the app. Any changes you make in the codebase will automatically be updated here.
+
 ## Running Tests
 This To-Do App is tested with pytest. Once the all dependencies have been installed, run all tests within the Poetry environment by running:
 ```bash

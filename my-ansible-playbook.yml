@@ -16,6 +16,7 @@
 
       - name: board_id
         prompt: Enter the board id
+        private: no
 
   tasks:
   - name: Install git and Python 3
@@ -42,7 +43,6 @@
     ansible.builtin.git: 
         repo: 'https://github.com/WendiF/DevOps-Course-Starter.git'
         dest: /opt/todoapp
-        version: exercise-4
 
   - name: Install project dependencies
     ansible.builtin.shell: |

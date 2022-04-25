@@ -1,0 +1,10 @@
+.env
+.env.template
+.git/
+.env.j2
+.env.test
+my-ansible-inventory
+my-ansible-playbook.yml
+.github
+tests/
+**/__pycache__/
