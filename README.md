@@ -56,7 +56,7 @@ You can build and run the Docker Image with the following commands:
 
 ```
 docker build --target development --tag todo_app:dev .
-docker run -d -p 5000:5000 --env-file ./.env --mount type=bind,source=C:/Work/DevOps-Course/DevOps-Course-Starter/todo_app,target=/todo_app/todo_app todo_app:dev
+docker run -d -p 5000:5000 --env-file ./.env --mount type=bind,source="$(pwd)"/todo_app,target=/todo_app/todo_app todo_app:dev
 ```
 
 Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser to view the app. Any changes you make in the codebase will automatically be updated here.
