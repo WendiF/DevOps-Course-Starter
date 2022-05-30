@@ -69,9 +69,13 @@ To run a specific test file, run:
 $ poetry run pytest path/to/test_file.py
 ```
 
-## Documentation
+## Architecture Diagrams
 
+### Context Diagram
 ![Context Diagram](./documentation/context_diagram.drawio.png)
+### Container Diagram
 ![Container Diagram](./documentation/container_diagram.drawio.png)
+### Component Diagram
 ![Component Diagram](./documentation/component_diagram.drawio.png)
+### Code Diagram
 ![Code Diagram](./documentation/code_diagram.png)
