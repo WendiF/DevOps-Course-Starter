@@ -68,3 +68,10 @@ To run a specific test file, run:
 ```bash
 $ poetry run pytest path/to/test_file.py
 ```
+
+## Documentation
+
+![Context Diagram](./documentation/context_diagram.drawio.png)
+![Container Diagram](./documentation/container_diagram.drawio.png)
+![Component Diagram](./documentation/component_diagram.drawio.png)
+![Code Diagram](./documentation/code_diagram.png)
