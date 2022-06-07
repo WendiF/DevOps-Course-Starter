@@ -5,5 +5,8 @@ jobs:
   name: Build and test
   runs-on: ubuntu-latest
   steps:
-    - uses: actions/checkout@v3
-    - run: docker build --target development .
+    - name: Build
+      uses: actions/checkout@v3
+      run: docker build --target development --tag todo_app:test .
+    - name: Test
+      run: docker run --env-file ./.env.test --mount type=bind,source="$(pwd)"/todo_app,target=/todo_app/todo_app --mount type=bind,source="$(pwd)"/tests,target=/todo_app/tests --entrypoint poetry todo_app:test run pytest

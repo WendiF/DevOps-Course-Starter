@@ -12,7 +12,3 @@ ENTRYPOINT ["poetry", "run", "gunicorn", "--bind", "0.0.0.0:80", "wsgi:run()"]
 FROM base as development
 RUN poetry install
 ENTRYPOINT ["poetry", "run", "flask", "run", "--host=0.0.0.0"]
-# testing stage
-# FROM base as test
-# RUN poetry install
-# ENTRYPOINT ["poetry", "run", "pytest"]
