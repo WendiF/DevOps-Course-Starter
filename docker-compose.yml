@@ -12,3 +12,16 @@ services:
       - type: bind
         source: ./todo_app
         target: /todo_app/todo_app
+  todo_app_test:
+    build:
+      context: .
+      target: development
+    env_file: ./.env.test
+    volumes:
+      - type: bind
+        source: ./todo_app
+        target: /todo_app/todo_app
+      - type: bind
+        source: ./tests
+        target: /todo_app/tests
+    entrypoint: watchmedo shell-command --patterns="*.py" --recursive --command "poetry run pytest"
