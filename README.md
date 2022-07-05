@@ -40,6 +40,15 @@ Move the files `my-ansible-playbook`, `create-todo-app.yaml` and `.env.j2` to th
 ansible-playbook my-ansible-playbook.yaml -i my-ansible-inventory
 ```
 
+## Running and Testing the App with Docker Compose
+You can run 
+
+```
+docker-compose up
+```
+
+to build and run tests for the todo app in development mode.
+
 ## Running the App with Docker in Production
 You can build and run the Docker Image with the following commands: 
 
