@@ -7,13 +7,20 @@ on:
     paths-ignore:
       - '**.md'
 jobs:
- build:
-  name: Build and test
-  runs-on: ubuntu-latest
-  steps:
-    - name: Checkout
-      uses: actions/checkout@v3
-    - name: Build
-      run: docker build --target development --tag todo_app:test .
-    - name: Test
-      run: docker run --env-file ./.env.test --mount type=bind,source="$(pwd)"/todo_app,target=/todo_app/todo_app --mount type=bind,source="$(pwd)"/tests,target=/todo_app/tests --entrypoint poetry todo_app:test run pytest
+  build:
+    name: Build and test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Build
+        run: docker build --target development --tag todo_app:test .
+      - name: Test
+        run: docker run --env-file ./.env.test --mount type=bind,source="$(pwd)"/todo_app,target=/todo_app/todo_app --mount type=bind,source="$(pwd)"/tests,target=/todo_app/tests --entrypoint poetry todo_app:test run pytest
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test Deploy
+        run: echo "Publishing!"
