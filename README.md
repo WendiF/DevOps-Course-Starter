@@ -59,6 +59,9 @@ docker run -d -p 5000:80 --env-file ./.env todo_app:prod .
 
 Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser to view the app.
 
+## Viewing the App on Production
+You can view the todo app on the following hosting site: 
+[`https://todo-app-by-wendi.azurewebsites.net/`](https://todo-app-by-wendi.azurewebsites.net/)
 
 ## Running the App with Docker in Development
 You can build and run the Docker Image with the following commands: 

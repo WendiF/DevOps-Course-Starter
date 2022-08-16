@@ -39,11 +39,5 @@ jobs:
           target: production
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/todo_app:latest, ${{ secrets.DOCKER_USERNAME }}/todo_app:${{ github.sha }}
-      - name: Login to Heroku
-        run: heroku container:login
-      - name: Push to Heroku
-        run: |
-          docker build --target production --tag registry.heroku.com/todo-app-by-wendi/web .
-          docker push registry.heroku.com/todo-app-by-wendi/web
-      - name: Release
-        run: heroku container:release web -a todo-app-by-wendi
+      - name: Deploy to Azure
+        run: curl -dH -X POST ${{secrets.AZURE_WEBHOOK_URL}} --fail-with-body
