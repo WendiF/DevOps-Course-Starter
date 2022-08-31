@@ -3,18 +3,20 @@ from dotenv import load_dotenv, find_dotenv
 from todo_app import app
 import os
 import requests
+import mongomock
 
 from datetime import date
-from todo_app.data.trello_items import get_items
+from todo_app.data.mongo_db_client import get_items
 
 @pytest.fixture
 def client():
     file_path = find_dotenv('.env.test')
     load_dotenv(file_path, override=True)
-    test_app = app.create_app()
-    
-    with test_app.test_client() as client:
-        yield client
+
+    with mongomock.patch(servers=(('fakemongo.com', 27017),)):
+        test_app = app.create_app()
+        with test_app.test_client() as client:
+            yield client
 
 def test_index_page(monkeypatch, client):
     monkeypatch.setattr(requests, 'get', get_items)
