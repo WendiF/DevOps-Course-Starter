@@ -2,10 +2,25 @@ import pytest
 from dotenv import load_dotenv, find_dotenv
 from todo_app import app
 import os
-import mongomock
-from pymongo import MongoClient
 
+from todo_app.data.item import Item, Status
 from datetime import date
+
+import pymongo
+import mongomock
+import pytest
+
+from pymongo.collection import Collection
+
+from todo_app.data.item import ApiItem
+
+
+class StubResponse():
+    def __init__(self, fake_response_data):
+        self.fake_response_data = fake_response_data
+
+    def json(self):
+        return self.fake_response_data
 
 @pytest.fixture
 def client():
@@ -18,13 +33,16 @@ def client():
             yield client
 
 @pytest.fixture
-def items():
-    client = MongoClient(os.getenv("MB_CONNECTION_STRING"))
+def items() -> Collection:
+    client = pymongo.MongoClient(os.getenv("PRIMARY_CONNECTION_STRING"))
     db = client[os.getenv("DATABASE_NAME")]
     return db.todo_app_collection
-class StubResponse():
-    def __init__(self, fake_response_data):
-        self.fake_response_data = fake_response_data
 
-    def json(self):
-        return self.fake_response_data
+def test_index_page(client, items):
+    add_test_items(items)
+    response = client.get('/')
+    assert response.status_code == 200
+    assert 'Test Item' in response.data.decode() 
+
+def add_test_items(items: Collection):
+    items.insert_one(Item('Test Item').__dict__)

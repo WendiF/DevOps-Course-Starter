@@ -10,7 +10,6 @@ class MongoDbClient:
         self.items = db.todo_app_collection
 
     def get_items(self):
-        print('getting items')
         return [ApiItem.from_json(item) for item in self.items.find()]
 
     def add_item(self, title):
