@@ -1,11 +1,11 @@
 from .item import Item, ApiItem
 import os
-from pymongo import MongoClient
+import pymongo
 from datetime import date
 
 class MongoDbClient:
     def __init__(self):
-        client = MongoClient(os.getenv('PRIMARY_CONNECTION_STRING'))
+        client = pymongo.MongoClient(os.getenv('PRIMARY_CONNECTION_STRING'))
         db = client[os.getenv('DATABASE_NAME')]
         self.items = db.todo_app_collection
 
