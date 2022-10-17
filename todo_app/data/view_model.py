@@ -15,7 +15,7 @@ class ViewModel:
 
     @property
     def in_progress_items(self):
-        return list(filter(lambda item: item.status == Status.IN_PROGRESSS.value, self._items))
+        return list(filter(lambda item: item.status == Status.IN_PROGRESS.value, self._items))
 
     @property
     def done_items(self):

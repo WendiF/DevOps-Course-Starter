@@ -1,14 +1,14 @@
 import pytest
 
-from todo_app.data.item import Item, Status
+from todo_app.data.item import ApiItem, Status
 from todo_app.data.view_model import ViewModel
 from datetime import date, timedelta
 
 def generate_test_items(start, end, status, is_past = False):
-    return [Item(id, 'Test Item', status.value, date.today() - timedelta(days=1) if is_past else date.today()) for id in range(start, end + 1)]
+    return [ApiItem(id, 'Test Item', status.value, date.today() - timedelta(days=1) if is_past else date.today()) for id in range(start, end + 1)]
 
 to_do_items = []
-in_progress_items = generate_test_items(1, 1, Status.IN_PROGRESSS)
+in_progress_items = generate_test_items(1, 1, Status.IN_PROGRESS)
 done_items = generate_test_items(2, 4, Status.DONE)
 all_items = to_do_items + in_progress_items + done_items
 

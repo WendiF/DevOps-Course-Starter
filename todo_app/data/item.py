@@ -3,10 +3,10 @@ from datetime import date
 
 class Status(Enum):
     TO_DO = "To Do"
-    IN_PROGRESSS = "In Progress"
+    IN_PROGRESS = "In Progress"
     DONE = "Done"
 
-class Item:
+class ApiItem:
     def __init__(self, id, title, status = Status.TO_DO.value, date_last_activity = date.today()):
         self.id = id
         self.title = title
@@ -14,5 +14,11 @@ class Item:
         self.date_last_activity = date_last_activity
     
     @classmethod
-    def from_trello_card(cls, card, list):
-        return cls(card['id'], card['name'], list['name'], date.fromisoformat(card['dateLastActivity'].split('T')[0]))
+    def from_json(cls, json):
+        return cls(json['_id'], json['title'], json['status'], json['date_last_activity'])
+
+class Item:
+    def __init__(self, title):
+        self.title = title
+        self.status = Status.TO_DO.value
+        self.date_last_activity = date.today().isoformat()

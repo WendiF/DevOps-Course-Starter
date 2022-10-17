@@ -32,7 +32,7 @@ $ cp .env.template .env  # (first time only)
 
 The `.env` file is used by flask to set environment variables when running `flask run`. This enables things like development mode (which also enables features like hot reloading when you make a file change). There's also a [SECRET_KEY](https://flask.palletsprojects.com/en/1.1.x/config/#SECRET_KEY) variable which is used to encrypt the flask session cookie. 
 
-You will also need to set the variables API_KEY, TOKEN, BOARD_ID in `.env`. Sign up for a Trello account, and create a new board with lists named 'To Do' and 'Done'. You can get your API_KEY and TOKEN by following the [instructions here](https://trello.com/app-key). You can get your BOARD_ID by adding '.json' to the end of your Trello board url, and finding the field called 'idList'.
+You will also need to set the variables PRIMARY_CONNECTION_STRING and DATABASE_NAME in `.env`.
 
 ## Running the App with Ansible
 Move the files `my-ansible-playbook`, `create-todo-app.yaml` and `.env.j2` to the control node, install ansible, and run
