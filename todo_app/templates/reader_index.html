@@ -1,0 +1,96 @@
+{% extends "layout.html" %}
+{% block title %}To-Do App{% endblock %}
+
+{% block content %}
+  <div class="jumbotron">
+    <h1 class="display-4">Wendi's To-Do App on Azure</h1>
+    <p class="lead">Just another to-do app.</p>
+  </div>
+
+  <br>
+
+  <div class="container">
+    <div class="row"> 
+      <div class="col-md">
+        <div class="border border-primary bg-primary rounded p-3">
+          <h2 class="text-center">To Do</h2>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th class="col-md-10">Title</th>
+                </tr>
+              </thead>
+              {% for item in view_model.to_do_items %}
+                <tr>
+                    <td class="col-md-10">{{item.title}}</td>
+                </tr>
+              {% endfor %}
+            </table>
+          </div>  
+        </div>
+      </div>
+      
+      <div class="col-md">
+        <div class="border border-primary bg-primary rounded p-3">
+          <h2 class="text-center">In Progress</h2>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th class="col-md-10">Title</th>
+                </tr>
+              </thead>
+              {% for item in view_model.in_progress_items %}
+                <tr>
+                    <td class="col-md-10">{{item.title}}</td>
+                </tr>
+              {% endfor %}
+            </table>
+          </div>  
+        </div>
+      </div>
+      
+      <div class="col-md">
+        <div class="border border-primary bg-primary rounded p-3">
+          <h2 class="text-center">Done</h2>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th class="col-md-11">Title</th>
+                </tr>
+              </thead>
+              {% if view_model.should_show_all_done_items %}
+                {% for item in view_model.done_items %}
+                  <tr>
+                    <td class="col-md-11"><s>{{item.title}}</s></td>
+                  </tr>
+                {% endfor %}
+              {% else %}
+                {% for item in view_model.recent_done_items %}
+                  <tr>
+                    <td class="col-md-11"><s>{{item.title}}</s></td>
+                  </tr>
+                {% endfor %}
+                {% for item in view_model.older_done_items %}
+                  <tr class="collapse" id="collapseItems">
+                    <td class="col-md-11"><s>{{item.title}}</s></td>
+                  </tr>
+                {% endfor %}
+              {% endif %}
+            </table>
+            
+            {% if not view_model.should_show_all_done_items %}
+              <a class="btn btn-primary float-right" data-toggle="collapse" href="#collapseItems" role="button" aria-expanded="false" aria-controls="collapseItems">Toggle Older Items</a>
+            {% endif %}
+          </div>  
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <br>
+  <br>
+{% endblock %}
+
