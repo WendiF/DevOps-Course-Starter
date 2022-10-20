@@ -29,7 +29,7 @@ def create_app():
     def writer_role_required(func):
         @wraps(func)
         def role_check(*args, **kwargs):
-            if os.getenv('LOGIN_DISABLED') == 'True' or current_user.role == Role.WRITER:
+            if has_writer_role():
                 return func(*args, **kwargs)
         return role_check
 
@@ -46,10 +46,13 @@ def create_app():
     def index():
         items = mongo_db_client.get_items()
         item_view_model = ViewModel(items)
-        if current_user.role == Role.WRITER:
+        if has_writer_role():
             return render_template('writer_index.html', view_model = item_view_model)
         else:
             return render_template('reader_index.html', view_model = item_view_model)
+
+    def has_writer_role():
+        return os.getenv('LOGIN_DISABLED') == 'True' or current_user.role == Role.WRITER
 
     @app.route("/login/callback")
     def github_authenticator_callback():
